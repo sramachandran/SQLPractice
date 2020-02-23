@@ -1,0 +1,29 @@
+-- triggers
+
+--triggers are special stored procedures executed in response to database object/database and server events
+
+--types of triggers: ddl and dml triggers
+
+--ddl triggers - operations on create,alter,drop,grant,revoke operations
+
+--Syntax:
+CREATE TRIGGER trigger_name
+ON { DATABASE |  ALL SERVER}
+[WITH ddl_trigger_option]
+FOR {event_type | event_group }
+AS {sql_statement}
+
+--dml triggers can be applied instead of and after dml operations
+
+--Syntax
+
+CREATE TRIGGER [schema_name.]trigger_name
+ON table_name
+AFTER or INSTEAD OF  {[INSERT],[UPDATE],[DELETE]}
+[NOT FOR REPLICATION]
+AS
+{sql_statements}
+
+--dml triggers - operations on select,insert,update and delete operations
+
+--dml triggers uses inserted and deleted virtaual tables
