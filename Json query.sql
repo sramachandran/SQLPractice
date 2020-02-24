@@ -62,6 +62,7 @@ JSON_QUERY(f.doc,'$.parents') as Parents,
 JSON_QUERY(f.doc,'$.children') as Children
 from Families f
 
+--json value is used to parse json and represent as table
 
 select 
 JSON_VALUE(f.doc,'$.id') as id,
@@ -72,6 +73,9 @@ from
 Families F
 cross apply openjson(f.doc,'$.children')
 with(grade int, givenName nvarchar(100)) c
+
+--to join with data in same json file
+
 
 SELECT	familyName,
 	c.givenName AS childGivenName,
@@ -85,9 +89,9 @@ FROM Families f
 			OUTER APPLY OPENJSON (pets)
 			WITH (givenName nvarchar(100))  as p
 
-declare @info varchar(100)
-declare @jsoninfo varchar(1000)
-set @jsoninfo='{ "state": "NY", "county": "Manhattan", "city": "NY" }'
-set @info = JSON_MODIFY(@jsonInfo, '$.city', 'SL')   
-select(@info)
-SET @info = JSON_MODIFY(@jsonInfo, '$.state', 'WS')   
+--modify json script
+
+DECLARE @json NVARCHAR(MAX);
+SET @json = '{"info": {"address": [{"town": "Belgrade"}, {"town": "Paris"}, {"town":"Madrid"}]}}';
+SET @json = JSON_MODIFY(@json, '$.info.address[1].town', 'London');
+SELECT modifiedJson = @json;
