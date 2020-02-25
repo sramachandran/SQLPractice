@@ -74,7 +74,7 @@ Families F
 cross apply openjson(f.doc,'$.children')
 with(grade int, givenName nvarchar(100)) c
 
---to join with data in same json file
+--converts json into a rowset
 
 
 SELECT	familyName,
